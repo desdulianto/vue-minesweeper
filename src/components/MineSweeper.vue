@@ -165,14 +165,15 @@ export default {
       this.loaded = true
     },
     openBox (box) {
-      if (!this.end) {
-        if (this.board[box.row][box.col].mine) {
+      let pos = this.board[box.row][box.col]
+      if (!this.end && !pos.marked) {
+        if (pos.mine) {
           // lost
-          this.board[box.row][box.col].opened = true
+          pos.opened = true
           this.end = true
           this.status = 'lost'
         } else {
-          if (!this.board[box.row][box.col].opened && !this.board[box.row][box.col].marked) {
+          if (!pos.opened) {
             this._revealBox(box.row, box.col)
           }
         }
